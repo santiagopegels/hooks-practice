@@ -1,8 +1,17 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 export const useFetch = (url) => {
 
+    const isMounted = useRef(true)
     const [state, setState] = useState({ data: null, loading: true, error: null })
+
+    useEffect(() => {
+
+        // Esto se ejecuta cuando el componente se desmonta
+        return () => {
+            isMounted.current = false
+        }
+    }, [])
 
     useEffect(() => {
 
@@ -11,11 +20,14 @@ export const useFetch = (url) => {
         fetch(url)
             .then(resp => resp.json())
             .then(data => {
-                setState({
-                    loading: false,
-                    error: null,
-                    data
-                })
+                //Verificar siempre que el componente este montado antes de hacer el setState
+                if (isMounted) {
+                    setState({
+                        loading: false,
+                        error: null,
+                        data
+                    })
+                } 
             })
     }, [url])
 
