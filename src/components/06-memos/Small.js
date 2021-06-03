@@ -6,6 +6,7 @@ mucho cuando hay llamadas fetch para evitar que vuelva a hacerlas en caso de que
 por ejemplo, que no afecta en nada a este. */
 
 export const Small = React.memo(({value}) => {
+    console.log("Component Mounted")
     return (
         <small>
             {value}
