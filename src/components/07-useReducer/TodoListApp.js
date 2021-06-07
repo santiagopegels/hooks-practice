@@ -1,8 +1,10 @@
 import React, { useReducer, useEffect } from 'react'
 import { todoReducer } from './todoReducer'
 
+import { TodoList } from './TodoList'
+import { TodoAdd } from './TodoAdd'
+
 import './style.css'
-import { useForm } from '../../hooks/useForm'
 
 const init = () => {
     return JSON.parse(localStorage.getItem('todos')) || [];
@@ -12,37 +14,35 @@ const init = () => {
 export const TodoListApp = () => {
 
     const [todos, dispatch] = useReducer(todoReducer, [], init)
-    const [{ description }, handleInputChange, reset] = useForm({
-        description: ''
-    })
 
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos))
     }, [todos])
 
-    const handleSubmit = (e) => {
-
-        if (description.trim() < 2) {
-            return;
-        }
-
-        e.preventDefault()
-
-        const newTodo = {
-            id: new Date().getTime(),
-            desc: description,
-            done: false
-        }
-
-        const action = {
+    const handleAddTodo = (newTodo) => {
+        dispatch({
             type: 'add',
             payload: newTodo
+        })
+    }
+
+    const handleDelete = (todoId) => {
+        const action = {
+            type: 'delete',
+            payload: todoId
         }
 
         dispatch(action)
-        reset()
     }
+
+    const handleToggle = (todoId) => {
+        dispatch({
+            type: 'toggle',
+            payload: todoId
+        })
+    }
+
 
     return (
         <div>
@@ -52,46 +52,14 @@ export const TodoListApp = () => {
             <div className="row">
                 <div className="col-7">
 
-                    <ul className="list-group list-group-flush">
-                        {
-                            todos.map((todo, index) => {
-                                return <li
-                                    key={todo.id}
-                                    className="list-group-item"
-                                >
-                                    <p className="text-center">{index + 1}. {todo.desc}</p>
-                                    <button className="btn btn-danger">
-                                        Delete
-                                    </button>
-                                </li>
-                            })
-                        }
-                    </ul>
+                    <TodoList
+                        todos={todos}
+                        handleDelete={handleDelete}
+                        handleToggle={handleToggle}
+                    />
                 </div>
                 <div className="col-5">
-                    <h4>Agregar TODO</h4>
-                    <hr></hr>
-
-                    <form>
-                        <input
-                            type="text"
-                            name="description"
-                            className="form-control"
-                            placeholder="Ingrese una tarea"
-                            autoComplete="off"
-                            value={description}
-                            onChange={handleInputChange}
-                        />
-                        <div class="d-grid gap-2">
-                            <button
-                                className="btn btn-outline-primary mt-2 btn-block"
-                                type="submit"
-                                onClick={handleSubmit}
-                            >
-                                Agregar
-                        </button>
-                        </div>
-                    </form>
+                   <TodoAdd handleAddTodo={handleAddTodo} />
                 </div>
             </div>
         </div>
