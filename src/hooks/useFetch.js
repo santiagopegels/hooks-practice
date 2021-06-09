@@ -21,13 +21,20 @@ export const useFetch = (url) => {
             .then(resp => resp.json())
             .then(data => {
                 //Verificar siempre que el componente este montado antes de hacer el setState
-                if (isMounted) {
+                if (isMounted.current) {
                     setState({
                         loading: false,
                         error: null,
                         data
                     })
                 } 
+            })
+            .catch(()=>{
+                setState({ 
+                    data: null, 
+                    loading: false, 
+                    error: 'Fetch Error' 
+                })
             })
     }, [url])
 
