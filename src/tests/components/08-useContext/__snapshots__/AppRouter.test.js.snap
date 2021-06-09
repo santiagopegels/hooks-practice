@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests on <AppRouter /> should show correctly 1`] = `
+<div>
+  <nav
+    className="navbar navbar-expand-lg navbar-light bg-light"
+  >
+    <div
+      className="container-fluid"
+    >
+      <a
+        className="navbar-brand"
+        href="#"
+      >
+        useContext
+      </a>
+      <div
+        className="collapse navbar-collapse"
+        id="navbarNav"
+      >
+        <div
+          className="navbar-nav"
+        >
+          <li
+            className="nav-item"
+          >
+            <a
+              aria-current="page"
+              className="nav-link active"
+              href="/"
+              onClick={[Function]}
+              style={Object {}}
+            >
+              Home
+            </a>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <a
+              aria-current={null}
+              className="nav-link"
+              href="/login"
+              onClick={[Function]}
+            >
+              Login
+            </a>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <a
+              aria-current={null}
+              className="nav-link"
+              href="/about"
+              onClick={[Function]}
+            >
+              About
+            </a>
+          </li>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div>
+    <h1>
+      HomeScreen
+    </h1>
+    <hr />
+    <pre>
+      {
+   "name": "Test",
+   "email": "test@test.com"
+}
+    </pre>
+  </div>
+</div>
+`;
