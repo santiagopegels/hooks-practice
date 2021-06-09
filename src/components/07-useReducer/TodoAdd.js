@@ -30,7 +30,7 @@ export const TodoAdd = ({handleAddTodo}) => {
             <h4>Agregar TODO</h4>
                     <hr></hr>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <input
                             type="text"
                             name="description"
@@ -44,7 +44,6 @@ export const TodoAdd = ({handleAddTodo}) => {
                             <button
                                 className="btn btn-outline-primary mt-2 btn-block"
                                 type="submit"
-                                onClick={handleSubmit}
                             >
                                 Agregar
                         </button>
